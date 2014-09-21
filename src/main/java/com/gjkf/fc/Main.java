@@ -16,10 +16,13 @@
 
 package com.gjkf.fc;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+import com.gjkf.fc.blocks.BaseCore;
 import com.gjkf.fc.handler.ConfigurationHandler;
+import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.proxy.CommonProxy;
 import com.gjkf.fc.references.References;
 import com.gjkf.lib.helper.LogHelper;
@@ -32,6 +35,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = References.MODID, name = References.MOD_NAME,version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS, dependencies = References.DEPENDENCIES)
 public class Main{
@@ -46,12 +50,20 @@ public class Main{
 	
 	public static CreativeTabs tab = new CreativeTab(CreativeTab.getNextID(), "foreCraftTab");
 	
+	public static Block baseCore = new BaseCore().setBlockName("baseCore").setCreativeTab(tab);
+	
+	public static Item itemCard = new ItemCard().setUnlocalizedName("itemCard").setCreativeTab(tab);
+	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event){
 		
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
 		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 		ConfigurationHandler.register();
+		
+		GameRegistry.registerBlock(baseCore, baseCore.getUnlocalizedName());
+		
+		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
 		
 	}
 	

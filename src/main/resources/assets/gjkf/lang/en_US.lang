@@ -1,2 +1,8 @@
 #Creative Tab
 itemGroup.foreCraftTab=Fore Craft Tab
+
+#Items
+item.itemCard.name=Card
+
+#Blocks
+tile.baseCore.name=Core Base

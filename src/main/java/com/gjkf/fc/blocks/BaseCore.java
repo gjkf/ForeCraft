@@ -16,6 +16,7 @@
 
 package com.gjkf.fc.blocks;
 
+import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.lib.blocks.GJMachineBlcock;
 
 import net.minecraft.block.ITileEntityProvider;
@@ -24,9 +25,13 @@ import net.minecraft.world.World;
 
 public class BaseCore extends GJMachineBlcock implements ITileEntityProvider{
 
+	public BaseCore(){
+		
+	}
+	
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata){
-		return null;
+		return new BaseCoreTE();
 	}
 
 }

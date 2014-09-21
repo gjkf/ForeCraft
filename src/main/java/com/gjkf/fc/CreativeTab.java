@@ -16,6 +16,8 @@
 
 package com.gjkf.fc;
 
+import com.gjkf.fc.blocks.BaseCore;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -27,7 +29,7 @@ public class CreativeTab extends CreativeTabs{
 
 	@Override
 	public Item getTabIconItem(){
-		return null;
+		return Main.itemCard;
 	}
 
 }
