@@ -14,8 +14,19 @@
  * this program; if not, see <http://www.gnu.org/licenses>.
  */
 
-package com.gjkf.fc.proxy;
+package com.gjkf.fc.blocks;
 
-public class CommonProxy implements IProxy{
+import com.gjkf.lib.blocks.GJMachineBlcock;
+
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class BaseCore extends GJMachineBlcock implements ITileEntityProvider{
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int metadata){
+		return null;
+	}
 
 }
