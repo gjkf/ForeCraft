@@ -17,10 +17,12 @@
 package com.gjkf.fc;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 import com.gjkf.fc.blocks.BaseCore;
+import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.handler.ConfigurationHandler;
 import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.proxy.CommonProxy;
@@ -63,12 +65,16 @@ public class Main{
 		
 		GameRegistry.registerBlock(baseCore, baseCore.getUnlocalizedName());
 		
+	//	GameRegistry.registerTileEntity(BaseCoreTE.class, "baseCoreTE");
+		
 		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
 		
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event){
+		
+		proxy.registerTE();
 		
 	}
 	

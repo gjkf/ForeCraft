@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 public class BaseCoreTE extends TileEntity implements IInventory{
-
+	
 	public ItemStack[] stackInSlot = new ItemStack[1]; 
 	
 	@Override
