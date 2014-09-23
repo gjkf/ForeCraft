@@ -38,8 +38,6 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 	public static final String name = "baseCore";
 	
 	@SideOnly(Side.CLIENT)
-	private IIcon iconSide;
-	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
 	
 	public BaseCore(){
@@ -54,14 +52,13 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockIcons(IIconRegister IconRegistry){
-		this.iconSide = IconRegistry.registerIcon(References.MODID + ":baseCoreSide");
-		this.blockIcon = IconRegistry.registerIcon(References.MODID + ":baseCoreTop");
+		this.blockIcon = IconRegistry.registerIcon(References.MODID + ":baseCoreSide");
 		this.iconFront = IconRegistry.registerIcon(References.MODID + ":baseCoreFront");
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta){
-		return side == 1 ? this.iconSide : (side == 0 ? this.blockIcon : (side != meta ? this.blockIcon : this.iconFront)); 
+		return side == 1 ? this.blockIcon : (side == 0 ? this.blockIcon : (side != meta ? this.blockIcon : this.iconFront)); 
 	}
 	
 	@SideOnly(Side.CLIENT)
