@@ -17,7 +17,9 @@
 package com.gjkf.fc.proxy;
 
 import com.gjkf.fc.blocks.BaseCore;
+import com.gjkf.fc.blocks.Station;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
+import com.gjkf.fc.blocks.te.StationTE;
 import com.gjkf.fc.references.References;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -27,6 +29,7 @@ public class CommonProxy implements IProxy{
 	@Override
 	public void registerTE() {
 		GameRegistry.registerTileEntity(BaseCoreTE.class, "tile." + BaseCore.name);
+		GameRegistry.registerTileEntity(StationTE.class, "tile." +  Station.name);
 	}
 
 }

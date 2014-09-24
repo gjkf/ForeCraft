@@ -20,8 +20,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.gjkf.fc.blocks.BaseCore;
+import com.gjkf.fc.blocks.Station;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.handler.ConfigurationHandler;
 import com.gjkf.fc.items.ItemCard;
@@ -54,6 +56,8 @@ public class Main{
 	
 	public static Block baseCore = new BaseCore().setBlockName("baseCore").setCreativeTab(tab);
 	
+	public static Block station = new Station().setBlockName("station").setCreativeTab(tab);
+	
 	public static Item itemCard = new ItemCard().setUnlocalizedName("itemCard").setCreativeTab(tab);
 	
 	@EventHandler
@@ -64,8 +68,7 @@ public class Main{
 		ConfigurationHandler.register();
 		
 		GameRegistry.registerBlock(baseCore, baseCore.getUnlocalizedName());
-		
-	//	GameRegistry.registerTileEntity(BaseCoreTE.class, "baseCoreTE");
+		GameRegistry.registerBlock(station, station.getUnlocalizedName());
 		
 		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
 		
