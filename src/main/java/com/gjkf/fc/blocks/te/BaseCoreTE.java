@@ -41,7 +41,7 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public boolean hasCustomInventoryName(){
-		return true;
+		return false;
 	}
 
 	@Override

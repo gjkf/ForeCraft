@@ -16,10 +16,13 @@
 
 package com.gjkf.fc;
 
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.gjkf.fc.blocks.BaseCore;
@@ -29,6 +32,7 @@ import com.gjkf.fc.handler.ConfigurationHandler;
 import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.proxy.CommonProxy;
 import com.gjkf.fc.references.References;
+import com.gjkf.fc.weather.Pressure;
 import com.gjkf.lib.helper.LogHelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -49,6 +53,8 @@ public class Main{
 	
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
+	public Map<BiomeGenBase, Pressure> biomesMap;
 	
 	public static LogHelper log = new LogHelper(References.MODID);
 	
@@ -71,6 +77,45 @@ public class Main{
 		GameRegistry.registerBlock(station, station.getUnlocalizedName());
 		
 		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
+
+		biomesMap.put(BiomeGenBase.beach, new Pressure());
+		biomesMap.put(BiomeGenPlains.birchForest, new Pressure());
+		biomesMap.put(BiomeGenBase.birchForestHills, new Pressure());
+		biomesMap.put(BiomeGenBase.coldBeach, new Pressure());
+		biomesMap.put(BiomeGenBase.coldTaiga, new Pressure());
+		biomesMap.put(BiomeGenBase.coldTaigaHills, new Pressure());
+		biomesMap.put(BiomeGenBase.deepOcean, new Pressure());
+		biomesMap.put(BiomeGenBase.desert, new Pressure());
+		biomesMap.put(BiomeGenBase.desertHills, new Pressure());
+		biomesMap.put(BiomeGenBase.extremeHills, new Pressure());
+		biomesMap.put(BiomeGenBase.forest, new Pressure());
+		biomesMap.put(BiomeGenBase.extremeHillsEdge, new Pressure());
+		biomesMap.put(BiomeGenBase.extremeHillsPlus, new Pressure());
+		biomesMap.put(BiomeGenBase.forestHills, new Pressure());
+		biomesMap.put(BiomeGenBase.frozenOcean, new Pressure());
+		biomesMap.put(BiomeGenBase.frozenRiver, new Pressure());
+		biomesMap.put(BiomeGenBase.iceMountains, new Pressure());
+		biomesMap.put(BiomeGenBase.hell, new Pressure());
+		biomesMap.put(BiomeGenBase.icePlains, new Pressure());
+		biomesMap.put(BiomeGenBase.jungle, new Pressure());
+		biomesMap.put(BiomeGenBase.jungleEdge, new Pressure());
+		biomesMap.put(BiomeGenBase.jungleHills, new Pressure());
+		biomesMap.put(BiomeGenBase.megaTaiga, new Pressure());
+		biomesMap.put(BiomeGenBase.mesa, new Pressure());
+		biomesMap.put(BiomeGenBase.mesaPlateau, new Pressure());
+		biomesMap.put(BiomeGenBase.mesaPlateau_F, new Pressure());
+		biomesMap.put(BiomeGenBase.mushroomIsland, new Pressure());
+		biomesMap.put(BiomeGenBase.mushroomIslandShore, new Pressure());
+		biomesMap.put(BiomeGenBase.ocean, new Pressure());
+		biomesMap.put(BiomeGenBase.river, new Pressure());
+		biomesMap.put(BiomeGenBase.roofedForest, new Pressure());
+		biomesMap.put(BiomeGenBase.savanna, new Pressure());
+		biomesMap.put(BiomeGenBase.savannaPlateau, new Pressure());
+		biomesMap.put(BiomeGenBase.sky, new Pressure());
+		biomesMap.put(BiomeGenBase.stoneBeach, new Pressure());
+		biomesMap.put(BiomeGenBase.swampland, new Pressure());
+		biomesMap.put(BiomeGenBase.taiga, new Pressure());
+		biomesMap.put(BiomeGenBase.taigaHills, new Pressure());
 		
 	}
 	
