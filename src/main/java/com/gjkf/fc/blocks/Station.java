@@ -16,6 +16,9 @@
 
 package com.gjkf.fc.blocks;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,17 +30,29 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import com.gjkf.fc.Main;
 import com.gjkf.fc.blocks.te.StationTE;
+import com.gjkf.fc.weather.Humidity;
+import com.gjkf.fc.weather.Pressure;
+import com.gjkf.fc.weather.Temperature;
 import com.gjkf.lib.blocks.GJMachineBlock;
 
 public class Station extends GJMachineBlock implements ITileEntityProvider{
 
 	public static String name = "station";
 	
-	public static float temperature;
-	public static float humidity;
+	public static double temperature;
+	public static double humidity;
+	public static double pressure;
 	
 	private static float biomeTemp;
 	private static float biomeHum;
+	
+	private Pressure p;
+	private Temperature t;
+	private Humidity h;
+	
+	public Station(){
+		setTickRandomly(true);
+	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata){
@@ -55,23 +70,25 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		BiomeGenBase currBiome = world.getBiomeGenForCoords(x, z);
 		EntityPlayer player = (EntityPlayer)entity;
 		
+		p = new Pressure();
+		t = new Temperature();
+		h = new Humidity();
+		
 		biomeTemp = currBiome.temperature;
 		biomeHum = currBiome.rainfall;
-		this.temperature = biomeTemp;
-		this.humidity = biomeHum;
 		
-		Main.log.info("Temp/Hum: " + biomeTemp + " " + biomeHum);
+		t.setTemperature(Main.biomesMap.get(currBiome));
+		p.setPressure(temperature, world.getTileEntity(x, y, z), currBiome);
+		h.setHumidity(biomeHum * 100);
+		
+		setWeather(t, h, p);
 		
 		if(world.isRemote){
-			player.addChatMessage(new ChatComponentText(String.format("BiomeTemp: %.2f | Biome Humidity: %.2f", this.getBlockTemperature(), this.getBlockHumidity())));
-			player.addChatMessage(new ChatComponentText(String.format("BiomeTemp: %.2f | Biome Humidity: %.2f", this.temperature, this.humidity)));
-			player.addChatMessage(new ChatComponentText(String.format("BiomeTemp: %.2f | Biome Humidity: %.2f", biomeTemp, biomeHum)));
+			player.addChatMessage(new ChatComponentText(String.format("BiomeTemp: %.2f | Biome Humidity: %.2f | Biome Pressure: %.2f", this.temperature, this.humidity, this.pressure)));
 		}
 		
 		biomeHum = 0;
 		biomeTemp = 0;
-		
-		Main.log.info("Temp/Hum: " + biomeTemp + " " + biomeHum);
 	}
 	
 	public static void setBlockTemperature(float ammount){
@@ -82,17 +99,43 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		humidity = ammount;
 	}
 	
-	public static float getBlockTemperature(){
+	public static double getBlockTemperature(){
 		return temperature;
 	}
 	
-	public static float getBlockHumidity(){
+	public static double getBlockHumidity(){
 		return humidity;
+	}
+	
+	public static double getBlockPressure(){
+		return pressure;
+	}
+	
+	public static void setWeather(Temperature t, Humidity h, Pressure p){
+		temperature = t.getTemperature();
+		humidity = h.getHumidity();
+		pressure = p.getPressure();
+	}
+	
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random rnd){
+		
+		if(rnd.nextInt() % 2 == 0){
+			setWeather(t, h, p);
+			
+			Main.log.info("Temp/Hum/Press: " + temperature + " " + humidity + " " + pressure);
+		}
+		
 	}
 	
 	@Override
 	public int getRenderType(){
 		return 0;
 	}
-
+	
+	@Override
+	public boolean hasTileEntity(){
+		return true;
+	}
+	
 }

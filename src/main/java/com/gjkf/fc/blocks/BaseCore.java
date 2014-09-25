@@ -122,4 +122,9 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 		return 0;
 	}
 	
+	@Override
+	public boolean hasTileEntity(){
+		return true;
+	}
+	
 }

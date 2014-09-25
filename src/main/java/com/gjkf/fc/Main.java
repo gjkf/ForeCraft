@@ -16,6 +16,7 @@
 
 package com.gjkf.fc;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -54,7 +55,7 @@ public class Main{
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
-	public Map<BiomeGenBase, Pressure> biomesMap;
+	public static Map<BiomeGenBase, Double> biomesMap = new HashMap<BiomeGenBase, Double>();
 	
 	public static LogHelper log = new LogHelper(References.MODID);
 	
@@ -78,45 +79,44 @@ public class Main{
 		
 		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
 
-		biomesMap.put(BiomeGenBase.beach, new Pressure());
-		biomesMap.put(BiomeGenPlains.birchForest, new Pressure());
-		biomesMap.put(BiomeGenBase.birchForestHills, new Pressure());
-		biomesMap.put(BiomeGenBase.coldBeach, new Pressure());
-		biomesMap.put(BiomeGenBase.coldTaiga, new Pressure());
-		biomesMap.put(BiomeGenBase.coldTaigaHills, new Pressure());
-		biomesMap.put(BiomeGenBase.deepOcean, new Pressure());
-		biomesMap.put(BiomeGenBase.desert, new Pressure());
-		biomesMap.put(BiomeGenBase.desertHills, new Pressure());
-		biomesMap.put(BiomeGenBase.extremeHills, new Pressure());
-		biomesMap.put(BiomeGenBase.forest, new Pressure());
-		biomesMap.put(BiomeGenBase.extremeHillsEdge, new Pressure());
-		biomesMap.put(BiomeGenBase.extremeHillsPlus, new Pressure());
-		biomesMap.put(BiomeGenBase.forestHills, new Pressure());
-		biomesMap.put(BiomeGenBase.frozenOcean, new Pressure());
-		biomesMap.put(BiomeGenBase.frozenRiver, new Pressure());
-		biomesMap.put(BiomeGenBase.iceMountains, new Pressure());
-		biomesMap.put(BiomeGenBase.hell, new Pressure());
-		biomesMap.put(BiomeGenBase.icePlains, new Pressure());
-		biomesMap.put(BiomeGenBase.jungle, new Pressure());
-		biomesMap.put(BiomeGenBase.jungleEdge, new Pressure());
-		biomesMap.put(BiomeGenBase.jungleHills, new Pressure());
-		biomesMap.put(BiomeGenBase.megaTaiga, new Pressure());
-		biomesMap.put(BiomeGenBase.mesa, new Pressure());
-		biomesMap.put(BiomeGenBase.mesaPlateau, new Pressure());
-		biomesMap.put(BiomeGenBase.mesaPlateau_F, new Pressure());
-		biomesMap.put(BiomeGenBase.mushroomIsland, new Pressure());
-		biomesMap.put(BiomeGenBase.mushroomIslandShore, new Pressure());
-		biomesMap.put(BiomeGenBase.ocean, new Pressure());
-		biomesMap.put(BiomeGenBase.river, new Pressure());
-		biomesMap.put(BiomeGenBase.roofedForest, new Pressure());
-		biomesMap.put(BiomeGenBase.savanna, new Pressure());
-		biomesMap.put(BiomeGenBase.savannaPlateau, new Pressure());
-		biomesMap.put(BiomeGenBase.sky, new Pressure());
-		biomesMap.put(BiomeGenBase.stoneBeach, new Pressure());
-		biomesMap.put(BiomeGenBase.swampland, new Pressure());
-		biomesMap.put(BiomeGenBase.taiga, new Pressure());
-		biomesMap.put(BiomeGenBase.taigaHills, new Pressure());
-		
+		biomesMap.put(BiomeGenBase.beach, 303.5);
+		biomesMap.put(BiomeGenBase.birchForest, 298.15);
+		biomesMap.put(BiomeGenBase.birchForestHills, 298.15);
+		biomesMap.put(BiomeGenBase.coldBeach, 278.15);
+		biomesMap.put(BiomeGenBase.coldTaiga, 278.15);
+		biomesMap.put(BiomeGenBase.coldTaigaHills, 278.15);
+		biomesMap.put(BiomeGenBase.deepOcean, 298.15);
+		biomesMap.put(BiomeGenBase.desert, 313.15);
+		biomesMap.put(BiomeGenBase.desertHills, 313.15);
+		biomesMap.put(BiomeGenBase.extremeHills, 278.15);
+		biomesMap.put(BiomeGenBase.forest, 298.15);
+		biomesMap.put(BiomeGenBase.extremeHillsEdge, 278.15);
+		biomesMap.put(BiomeGenBase.extremeHillsPlus, 278.15);
+		biomesMap.put(BiomeGenBase.forestHills, 298.15);
+		biomesMap.put(BiomeGenBase.frozenOcean, 273.15);
+		biomesMap.put(BiomeGenBase.frozenRiver, 273.15);
+		biomesMap.put(BiomeGenBase.iceMountains, 273.15);
+		biomesMap.put(BiomeGenBase.hell, 673.15);
+		biomesMap.put(BiomeGenBase.icePlains, 273.15);
+		biomesMap.put(BiomeGenBase.jungle, 303.15);
+		biomesMap.put(BiomeGenBase.jungleEdge, 303.15);
+		biomesMap.put(BiomeGenBase.jungleHills, 303.15);
+		biomesMap.put(BiomeGenBase.megaTaiga, 283.15);
+		biomesMap.put(BiomeGenBase.mesa, 298.15);
+		biomesMap.put(BiomeGenBase.mesaPlateau, 298.15);
+		biomesMap.put(BiomeGenBase.mesaPlateau_F, 298.15);
+		biomesMap.put(BiomeGenBase.mushroomIsland, 298.15);
+		biomesMap.put(BiomeGenBase.mushroomIslandShore, 298.15);
+		biomesMap.put(BiomeGenBase.ocean, 298.15);
+		biomesMap.put(BiomeGenBase.river, 298.15);
+		biomesMap.put(BiomeGenBase.roofedForest, 298.15);
+		biomesMap.put(BiomeGenBase.savanna, 303.15);
+		biomesMap.put(BiomeGenBase.savannaPlateau, 303.15);
+		biomesMap.put(BiomeGenBase.sky, 243.15);
+		biomesMap.put(BiomeGenBase.stoneBeach, 303.5);
+		biomesMap.put(BiomeGenBase.swampland, 303.15);
+		biomesMap.put(BiomeGenBase.taiga, 283.15);
+		biomesMap.put(BiomeGenBase.taigaHills, 283.15);
 	}
 	
 	@EventHandler

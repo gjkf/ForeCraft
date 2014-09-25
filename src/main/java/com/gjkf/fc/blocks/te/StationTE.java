@@ -27,23 +27,27 @@ import net.minecraft.tileentity.TileEntity;
 
 public class StationTE extends TileEntity implements IInventory{
 
-	public static float temperature = Station.getBlockTemperature();
-	public static float humidity = Station.getBlockHumidity();
+	public static double temperature = Station.getBlockTemperature();
+	public static double humidity = Station.getBlockHumidity();
+	public static double pressure = Station.getBlockPressure();
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag){
 		super.readFromNBT(tag);
 		
-		this.temperature = tag.getFloat("Temperature");
-		this.humidity = tag.getFloat("Humidity");
+		this.temperature = tag.getDouble("Temperature");
+		this.humidity = tag.getDouble("Humidity");
+		this.pressure = tag.getDouble("Pressure");
+		
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag){
 		super.writeToNBT(tag);
 		
-		tag.setFloat("Temperature", Station.getBlockTemperature());
-		tag.setFloat("Humidity", Station.getBlockHumidity());
+		tag.setDouble("Temperature", Station.getBlockTemperature());
+		tag.setDouble("Humidity", Station.getBlockHumidity());
+		tag.setDouble("Pressure", Station.getBlockPressure());
 	}
 	
 	@Override
