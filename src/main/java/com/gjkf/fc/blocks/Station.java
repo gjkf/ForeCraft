@@ -77,11 +77,7 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		biomeTemp = currBiome.temperature;
 		biomeHum = currBiome.rainfall;
 		
-		t.setTemperature(Main.biomesMap.get(currBiome));
-		p.setPressure(temperature, world.getTileEntity(x, y, z), currBiome);
-		h.setHumidity(biomeHum * 100);
-		
-		setWeather(t, h, p);
+		setWeather(t, h, p, currBiome, x, y, z);
 		
 		if(world.isRemote){
 			player.addChatMessage(new ChatComponentText(String.format("BiomeTemp: %.2f | Biome Humidity: %.2f | Biome Pressure: %.2f", this.temperature, this.humidity, this.pressure)));
@@ -111,7 +107,11 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		return pressure;
 	}
 	
-	public static void setWeather(Temperature t, Humidity h, Pressure p){
+	public static void setWeather(Temperature t, Humidity h, Pressure p, BiomeGenBase currBiome, int x, int y, int z){
+		t.setTemperature(Main.biomesMap.get(currBiome));
+		p.setPressure(temperature, world.getTileEntity(x, y, z), currBiome);
+		h.setHumidity(biomeHum * 100);		
+
 		temperature = t.getTemperature();
 		humidity = h.getHumidity();
 		pressure = p.getPressure();
@@ -119,6 +119,10 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rnd){
+		
+		p = new Pressure();
+		t = new Temperature();
+		h = new Humidity();
 		
 		if(rnd.nextInt() % 2 == 0){
 			setWeather(t, h, p);
