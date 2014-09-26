@@ -14,15 +14,8 @@
  * this program; if not, see <http://www.gnu.org/licenses>.
  */
 
-package com.gjkf.fc.handler;
+package com.gjkf.fc;
 
-import com.gjkf.fc.Main;
-import com.gjkf.fc.blocks.Station;
-import com.gjkf.fc.weather.Rain;
+public class Ub {
 
-public class WeatherHandler{
-
-	public void init(){
-		Rain.setProbableRain(Station.getBlockHumidity(), Station.getBlockPressure());
-	}
 }

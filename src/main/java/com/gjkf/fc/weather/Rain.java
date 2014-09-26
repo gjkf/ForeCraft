@@ -16,45 +16,50 @@
 
 package com.gjkf.fc.weather;
 
-import com.gjkf.fc.Main;
+import java.util.Random;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.storage.WorldInfo;
 
+import com.gjkf.fc.Main;
+
 public class Rain{
 
 	private static double probability;
-	
+
 	public static void setProbableRain(double humidity, double pressure){
 		WorldInfo worldinfo = MinecraftServer.getServer().worldServers[0].getWorldInfo();
-		
-		/*
-		 * If probability is less than 1100 or more than 1500 then make rain.
-		 */
-		
+
 		setProbability(humidity, pressure);
-		
-		if(pressure <= 980 || pressure >= 1000){
-	        worldinfo.setRaining(true);
+
+		/*
+		 * If pressure is less than 1100 or more than 1500 then make rain.
+		 */
+
+		if(getProbability() <= 1115){
+			worldinfo.setRaining(true);
 		}else if(getProbability() <= 850){
 			worldinfo.setThundering(true);
-		}
-		
-		if(pressure >= 1001 && (worldinfo.isRaining() || worldinfo.isThundering())){
+		}else if(getProbability() >= 2050 && (worldinfo.isRaining() || worldinfo.isThundering())){
 			worldinfo.setRaining(false);
 			worldinfo.setThundering(false);
+		}else{
+			int rnd = new Random().nextInt(100);
+			if(rnd % 2 == 0){
+				worldinfo.setRaining(true);
+			}
 		}
-		
+
 		Main.log.info("Rain Probability: " + getProbability());
-		
+
 	}
-	
+
 	public static void setProbability(double humidity, double pressure){
 		probability = pressure / (humidity/100);
 	}
-	
+
 	public static double getProbability(){
 		return probability;
 	}
-	
+
 }

@@ -26,7 +26,7 @@ public class Humidity{
 	
 	public void setHumidity(double biomHum){
 		//This gives the humidity a range of 15 
-		humidity = Math.random() * 16 + (biomHum - 8);
+		humidity = Math.random() * 10 + biomHum;
 	}
 	
 }
