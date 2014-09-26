@@ -27,9 +27,9 @@ import net.minecraft.tileentity.TileEntity;
 
 public class StationTE extends TileEntity implements IInventory{
 
-	public static double temperature = Station.getBlockTemperature();
-	public static double humidity = Station.getBlockHumidity();
-	public static double pressure = Station.getBlockPressure();
+	public static double temperature;
+	public static double humidity;
+	public static double pressure;
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag){

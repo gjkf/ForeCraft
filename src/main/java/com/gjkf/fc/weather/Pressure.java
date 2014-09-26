@@ -26,7 +26,7 @@ public class Pressure{
 
 	public double pressure;
 	
-	public static double constant = 9.81 * 0.03 / 8.31 / 0.0065; // 5.45
+	public static final double constant = 9.81 * 0.03 / 8.31 / 0.0065; // 5.45
 	
 	public Pressure(){
 		
@@ -44,7 +44,7 @@ public class Pressure{
 	
 	public void setPressure(TileEntity te, BiomeGenBase biome){
 		if(BiomesHandler.vanillaBiomes.get(biome) == null){
-			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(biome)[1])) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
+			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(biome)[0])) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
 		}else{
 			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.vanillaBiomes.get(biome)) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
 		}
