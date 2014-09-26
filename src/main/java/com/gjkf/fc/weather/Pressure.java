@@ -44,7 +44,7 @@ public class Pressure{
 	
 	public void setPressure(TileEntity te, BiomeGenBase biome){
 		if(BiomesHandler.vanillaBiomes.get(biome) == null){
-			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(biome))) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
+			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(biome)[1])) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
 		}else{
 			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.vanillaBiomes.get(biome)) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
 		}

@@ -114,13 +114,16 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	 */
 
 	public static void setWeather(Temperature t, Humidity h, Pressure p, BiomeGenBase currBiome, int x, int y, int z, World world){
+		
+		/*
+		 *If the biome is not a vanilla biome, then use the dictionary 
+		 */
+		
 		if(BiomesHandler.vanillaBiomes.get(currBiome) == null){
-			Main.log.info(BiomeDictionary.getTypesForBiome(currBiome));
-			t.setTemperature(BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(currBiome)));
+			t.setTemperature(BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(currBiome)[1]));
 		}else{
 			t.setTemperature(BiomesHandler.vanillaBiomes.get(currBiome));
 		}
-		Main.log.info("Biome: " + currBiome);
 		p.setPressure(world.getTileEntity(x, y, z), currBiome);
 		h.setHumidity(currBiome.rainfall * 100);		
 
