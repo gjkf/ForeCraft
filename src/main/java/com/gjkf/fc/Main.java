@@ -16,19 +16,18 @@
 
 package com.gjkf.fc;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.gjkf.fc.blocks.BaseCore;
 import com.gjkf.fc.blocks.Station;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
+import com.gjkf.fc.handler.BiomesHandler;
 import com.gjkf.fc.handler.ConfigurationHandler;
 import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.proxy.CommonProxy;
@@ -55,8 +54,6 @@ public class Main{
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
-	public static Map<BiomeGenBase, Double> biomesMap = new HashMap<BiomeGenBase, Double>();
-	
 	public static LogHelper log = new LogHelper(References.MODID);
 	
 	public static CreativeTabs tab = new CreativeTab(CreativeTab.getNextID(), "foreCraftTab");
@@ -69,16 +66,9 @@ public class Main{
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event){
+		BiomesHandler.putAllBiomes();
 		
-		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
-		ConfigurationHandler.register();
-		
-		GameRegistry.registerBlock(baseCore, baseCore.getUnlocalizedName());
-		GameRegistry.registerBlock(station, station.getUnlocalizedName());
-		
-		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
-
+		/*
 		biomesMap.put(BiomeGenBase.beach, 303.5);
 		biomesMap.put(BiomeGenBase.birchForest, 298.15);
 		biomesMap.put(BiomeGenBase.birchForestHills, 298.15);
@@ -117,6 +107,18 @@ public class Main{
 		biomesMap.put(BiomeGenBase.swampland, 303.15);
 		biomesMap.put(BiomeGenBase.taiga, 283.15);
 		biomesMap.put(BiomeGenBase.taigaHills, 283.15);
+
+		 */
+		
+		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
+		ConfigurationHandler.register();
+		
+		GameRegistry.registerBlock(baseCore, baseCore.getUnlocalizedName());
+		GameRegistry.registerBlock(station, station.getUnlocalizedName());
+		
+		GameRegistry.registerItem(itemCard, itemCard.getUnlocalizedName());
+
 	}
 	
 	@EventHandler

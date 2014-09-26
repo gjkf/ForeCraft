@@ -27,7 +27,6 @@ minecraft {
 }
 
 dependencies {
-    compile files("/Users/Davide/Desktop/Minecraft Related/DebofModsForModding/BiomesOPlenty-1.7.10-2.1.0.991-deobf.jar")
     compile files("/Users/Davide/Desktop/My Mods/GjkfLib/build/libs/gjkfLib-0.2.5.19-deobf.jar")
 }
 

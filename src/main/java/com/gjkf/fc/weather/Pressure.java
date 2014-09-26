@@ -16,10 +16,11 @@
 
 package com.gjkf.fc.weather;
 
-import com.gjkf.fc.Main;
+import com.gjkf.fc.handler.BiomesHandler;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 
 public class Pressure{
 
@@ -35,9 +36,19 @@ public class Pressure{
 		return pressure;
 	}
 	
-	public void setPressure(double temperature, TileEntity te, BiomeGenBase biome){
-		pressure = (101325 * Math.pow((1 + (-0.0065 / (Main.biomesMap.get(biome)) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
-		
+	/*
+	 * Sets the Pressure based on Temperature of the given biome
+	 * @param Tile Entity
+	 * @param biome 
+	 */
+	
+	public void setPressure(TileEntity te, BiomeGenBase biome){
+		if(BiomesHandler.vanillaBiomes.get(biome) == null){
+			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(biome))) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
+		}else{
+			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.vanillaBiomes.get(biome)) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
+		}
+		// This gives the pressure a range of 200
 		pressure = Math.random() * 201 + (pressure - 100);
 	}
 	
