@@ -29,6 +29,7 @@ import com.gjkf.fc.blocks.Station;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.handler.BiomesHandler;
 import com.gjkf.fc.handler.ConfigurationHandler;
+import com.gjkf.fc.handler.GuiHandler;
 import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.proxy.CommonProxy;
 import com.gjkf.fc.references.References;
@@ -43,6 +44,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = References.MODID, name = References.MOD_NAME,version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS, dependencies = References.DEPENDENCIES)
@@ -125,6 +127,8 @@ public class Main{
 	public void init(FMLInitializationEvent event){
 		
 		proxy.registerTE();
+		
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
 	}
 	

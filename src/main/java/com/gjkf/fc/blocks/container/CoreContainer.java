@@ -14,20 +14,24 @@
  * this program; if not, see <http://www.gnu.org/licenses>.
  */
 
-package com.gjkf.fc.references;
+package com.gjkf.fc.blocks.container;
 
-public class References{
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
 
-	public static final String MODID = "foreCraft";
-	public static final String MOD_NAME = "ForeCraft";
-	public static final String VERSION = "0.1";
-	public static final String DEPENDENCIES = "required-after:gjkfLib@[0.2,]";
+public class CoreContainer extends Container{
+
+	public static Container coreContainer;
 	
-	public static final String GUI_FACTORY_CLASS = "com.gjkf.fc.client.gui.GuiFactory";
-	public static final String COMMON_PROXY_CLASS = "com.gjkf.fc.proxy.CommonProxy";
-	public static final String CLIENT_PROXY_CLASS = "com.gjkf.fc.proxy.ClientProxy";
-	public static final String SERVER_PROXY_CLASS = "com.gjkf.fc.proxy.ServerProxy";
+	public CoreContainer(InventoryPlayer inventoryPlayer, TileEntity te){
+		
+	}
 	
-	public static final int GUI_CORE_ID = 6000;
-	
+	@Override
+	public boolean canInteractWith(EntityPlayer player) {
+		return false;
+	}
+
 }

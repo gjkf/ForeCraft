@@ -50,6 +50,7 @@ public class Pressure{
 			pressure = (101325 * Math.pow((1 + (-0.0065 / (BiomesHandler.vanillaBiomes.get(biome)) * ((te.yCoord - 64)))), constant)) * Math.pow(10, -2);
 		}
 		Main.log.info("Actual Pressure: " + pressure);
+		
 		// This gives the pressure a range of 200
 		pressure = Math.random() * 111 + pressure;
 	}

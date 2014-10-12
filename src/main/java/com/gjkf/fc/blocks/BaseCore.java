@@ -16,6 +16,7 @@
 
 package com.gjkf.fc.blocks;
 
+import com.gjkf.fc.Main;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.references.References;
 import com.gjkf.lib.blocks.GJMachineBlock;
@@ -27,6 +28,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -47,6 +49,22 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata){
 		return new BaseCoreTE();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
+		if(world.isRemote && player.getCurrentEquippedItem() == null && world.getTileEntity(x, y, z) instanceof BaseCoreTE){
+			
+			Main.log.info("Opening Gui");
+			
+			player.openGui(Main.instance, References.GUI_CORE_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+			
+			Main.log.info("Succesfully opened Gui");
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)
