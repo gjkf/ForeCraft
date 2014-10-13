@@ -14,14 +14,17 @@
  * this program; if not, see <http://www.gnu.org/licenses>.
  */
 
-package com.gjkf.fc.client.gui;
+package com.gjkf.fc.client.gui.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
-import com.gjkf.fc.blocks.container.CoreContainer;
+import org.lwjgl.opengl.GL11;
+
 import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.lib.gui.GuiGJButton;
 import com.gjkf.lib.gui.GuiScreenWidget;
+import com.gjkf.lib.render.GJRenderState;
 
 public class CoreGui extends GuiScreenWidget{
 	
@@ -41,8 +44,18 @@ public class CoreGui extends GuiScreenWidget{
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f){
-		drawDefaultBackground();
+		//drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, f);
+	}
+	
+	@Override
+	public void drawBackground(){
+		
+		//GuiDraw.drawRect(0, 0, width, height, 0x202020);
+		
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GJRenderState.changeTexture(new ResourceLocation("forecraft", "textures/gui/coreBackground.png"));
+        drawTexturedModalRect(0, 0, 0, 0, 512, 256);
 	}
 	
 	@Override

@@ -106,5 +106,17 @@ public class StationTE extends TileEntity implements IInventory{
 	public boolean isItemValidForSlot(int slot, ItemStack stack){
 		return false;
 	}
+	
+	public static double getTemperature(){
+		return temperature;
+	}
+	
+	public static double getPressure(){
+		return pressure;
+	}
 
+	public static double getHumidity(){
+		return humidity;
+	}
+	
 }

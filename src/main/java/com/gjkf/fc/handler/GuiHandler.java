@@ -18,7 +18,7 @@ package com.gjkf.fc.handler;
 
 import com.gjkf.fc.blocks.container.CoreContainer;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
-import com.gjkf.fc.client.gui.CoreGui;
+import com.gjkf.fc.client.gui.inventory.CoreGui;
 import com.gjkf.fc.references.References;
 
 import net.minecraft.entity.player.EntityPlayer;

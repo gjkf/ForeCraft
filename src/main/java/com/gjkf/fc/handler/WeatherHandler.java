@@ -22,7 +22,11 @@ import com.gjkf.fc.weather.Rain;
 
 public class WeatherHandler{
 
-	public void init(){
-		Rain.setProbableRain(Station.getBlockHumidity(), Station.getBlockPressure());
+	public void init(Object o){
+		
+		if(o instanceof Station){
+			Rain.setProbableRain(Station.getBlockHumidity(), Station.getBlockPressure());
+		}
+		
 	}
 }

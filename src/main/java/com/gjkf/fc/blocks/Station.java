@@ -94,7 +94,7 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		biomeTemp = 0;
 		
 		weatherHandler = new WeatherHandler();
-		weatherHandler.init();
+		weatherHandler.init(this);
 	}
 	
 	public static double getBlockTemperature(){
@@ -151,7 +151,8 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 
 		Main.log.info("Temp/Hum/Press: " + temperature + " " + humidity + " " + pressure);
 
-		weatherHandler.init();
+		weatherHandler = new WeatherHandler();
+		weatherHandler.init(this);
 		
 	}
 
