@@ -16,16 +16,8 @@
 
 package com.gjkf.fc.blocks;
 
-import com.gjkf.fc.Main;
-import com.gjkf.fc.blocks.te.BaseCoreTE;
-import com.gjkf.fc.references.References;
-import com.gjkf.lib.blocks.GJMachineBlock;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,35 +27,64 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import com.gjkf.fc.Main;
+import com.gjkf.fc.blocks.te.BaseCoreTE;
+import com.gjkf.fc.items.ItemCard;
+import com.gjkf.fc.references.References;
+import com.gjkf.lib.blocks.GJMachineBlock;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 
 	public static final String name = "baseCore";
-	
+
 	@SideOnly(Side.CLIENT)
 	private IIcon iconFront;
-	
+
 	public BaseCore(){
-		
+
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata){
 		return new BaseCoreTE();
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
+
+		/*
+		 * I open the gui only if clicked on an empty hand
+		 */
+
 		if(world.isRemote && player.getCurrentEquippedItem() == null && world.getTileEntity(x, y, z) instanceof BaseCoreTE){
-			
+
 			Main.log.info("Opening Gui");
-			
+
 			player.openGui(Main.instance, References.GUI_CORE_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
-			
+
 			Main.log.info("Succesfully opened Gui");
-			
+
 			return true;
 		}
-		
+
+		if(player.getCurrentEquippedItem() != null){
+			if(player.getCurrentEquippedItem().getItem() instanceof ItemCard && world.getTileEntity(x, y, z) instanceof BaseCoreTE){
+				BaseCoreTE coreTe = (BaseCoreTE) world.getTileEntity(x, y, z);
+
+				Main.log.info("Stack In SlOt: " + coreTe.getStackInSlot(0));
+
+				if(coreTe.getStackInSlot(0) == null){
+					coreTe.setInventorySlotContents(0, player.getCurrentEquippedItem());
+					Main.log.info("Test");
+					Main.log.info("Stack in Slot: " + coreTe.stackInSlot[0]);
+					Main.log.info("Player hand: " + player.getCurrentEquippedItem());
+				}
+			}
+		}
+
 		return false;
 	}
 
@@ -73,18 +94,18 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 		this.blockIcon = IconRegistry.registerIcon(References.MODID + ":baseCoreSide");
 		this.iconFront = IconRegistry.registerIcon(References.MODID + ":baseCoreFront");
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta){
 		return side == 1 ? this.blockIcon : (side == 0 ? this.blockIcon : (side != meta ? this.blockIcon : this.iconFront)); 
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void onBlockAdded(World world, int x, int y, int z){
 		super.onBlockAdded(world, x, y, z);
 		this.setDefaultDirection(world, x, y, z);
 	}
-	
+
 	private void setDefaultDirection(World world, int x, int y, int z){
 		if(!world.isRemote){
 			Block block = world.getBlock(x, y, z-1);
@@ -112,7 +133,7 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 			world.setBlockMetadataWithNotify(x, y, z, b0, 2);
 		}
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack){
 		int l = MathHelper.floor_double((double)(entity.rotationYaw * 4.0 / 360.F) + 0.5D) & 3;
@@ -134,15 +155,15 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 		}
 
 	}
-	
+
 	@Override
 	public int getRenderType(){
 		return 0;
 	}
-	
+
 	@Override
 	public boolean hasTileEntity(){
 		return true;
 	}
-	
+
 }

@@ -17,47 +17,52 @@
 package com.gjkf.fc.client.gui.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import com.gjkf.fc.blocks.te.BaseCoreTE;
+import com.gjkf.lib.gui.GuiDraw;
 import com.gjkf.lib.gui.GuiGJButton;
 import com.gjkf.lib.gui.GuiScreenWidget;
-import com.gjkf.lib.render.GJRenderState;
 
 public class CoreGui extends GuiScreenWidget{
 	
-	public CoreGui(InventoryPlayer inventoryPlayer, BaseCoreTE te){
-		super();
-	}
+	{super.width = GuiDraw.displaySize().width;
+	super.height = GuiDraw.displaySize().height;}
 	
+	public CoreGui(InventoryPlayer inventoryPlayer, BaseCoreTE te){
+		super(GuiDraw.displaySize().width, GuiDraw.displaySize().height);
+	}
+
 	@Override
 	public void addWidgets(){
 		add(new GuiGJButton(width + 40, height - 150, 30, 20, "C/F").setActionCommand("C/F"));
 	}
-	
+
 	@Override
 	public void initGui(){
 		super.initGui();
+		System.err.println(width);
+		System.err.println(height);
 	}
-	
+
+	@Override
+	public void drawForeground(){
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+		GuiDraw.drawCentered("Test It seems to Work!!! YAY", width, height, 0xFFFFFF);
+		
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+	}
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f){
-		//drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, f);
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, f);
 	}
-	
-	@Override
-	public void drawBackground(){
-		
-		//GuiDraw.drawRect(0, 0, width, height, 0x202020);
-		
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GJRenderState.changeTexture(new ResourceLocation("forecraft", "textures/gui/coreBackground.png"));
-        drawTexturedModalRect(0, 0, 0, 0, 512, 256);
-	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame(){
 		return false;

@@ -17,9 +17,12 @@
 package com.gjkf.fc.blocks.te;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import com.gjkf.fc.items.ItemCard;
 
 public class BaseCoreTE extends TileEntity implements IInventory{
 	
@@ -47,7 +50,7 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack){
-		
+		stackInSlot[slot] = stack;
 	}
 
 	@Override
@@ -67,7 +70,7 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player){
-		return false;
+		return true;
 	}
 
 	@Override
@@ -82,7 +85,7 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack){
-		return false;
+		return stack.getItem() instanceof ItemCard;
 	}
 
 }

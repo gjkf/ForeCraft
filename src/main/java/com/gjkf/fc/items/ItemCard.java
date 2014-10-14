@@ -22,10 +22,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.world.World;
+import scala.xml.dtd.impl.Base;
 
 import com.gjkf.fc.Main;
+import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.blocks.te.StationTE;
 import com.gjkf.lib.helper.NBTHelper;
 
@@ -66,6 +67,21 @@ public class ItemCard extends Item{
 			NBTHelper.setDouble(itemStack, "Pressure", station.getPressure());
 			
 			return true;
+			
+		}else if(world.getTileEntity(x, y, z) instanceof BaseCoreTE){
+			
+			BaseCoreTE core = (BaseCoreTE) world.getTileEntity(x, y, z);
+			
+			core.setInventorySlotContents(0, entityPlayer.getCurrentEquippedItem());
+			
+			Main.log.info("TeSt");
+			Main.log.info("Stack in slot: " + core.getStackInSlot(0));
+			
+			Main.log.info("Stack in Slot: " + core.stackInSlot[0]);
+			Main.log.info("Player hand: " + entityPlayer.getCurrentEquippedItem());
+			
+			return true;
+			
 		}
 		
 		return false;
