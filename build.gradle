@@ -22,7 +22,7 @@ group= "com.gjkf.fc" // http://maven.apache.org/guides/mini/guide-naming-convent
 archivesBaseName = "foreCraft"
 
 minecraft {
-    version = "1.7.10-10.13.1.1217"
+    version = "1.7.10-10.13.1.1226"
     runDir = "eclipse"
 }
 

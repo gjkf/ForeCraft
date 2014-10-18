@@ -17,24 +17,32 @@
 package com.gjkf.fc.blocks.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import com.gjkf.fc.blocks.te.BaseCoreTE;
-import com.gjkf.fc.items.ItemCard;
 
 public class CoreContainer extends Container{
 
-	public static Container coreContainer;
+	private BaseCoreTE te;
 	
-	public CoreContainer(BaseCoreTE te){
-		this.addSlotToContainer(new Slot(te, 0, 427, 240));
+	public CoreContainer(InventoryPlayer playerInv, BaseCoreTE te){
+		this.te = te;
+
+		this.addSlotToContainer(new Slot(te, BaseCoreTE.INVENTORY_INDEX, 45, 55));
+		
 	}
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
+	}
+	
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex){
+		return null;
 	}
 
 }

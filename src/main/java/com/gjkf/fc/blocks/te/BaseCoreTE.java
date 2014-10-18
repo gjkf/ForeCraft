@@ -26,8 +26,15 @@ import com.gjkf.fc.items.ItemCard;
 
 public class BaseCoreTE extends TileEntity implements IInventory{
 	
-	public ItemStack[] stackInSlot = new ItemStack[1]; 
+	public ItemStack[] stackInSlot; 
 	
+	public static final int INVENTORY_SIZE = 1;
+    public static final int INVENTORY_INDEX = 0;
+	
+    public BaseCoreTE(){
+    	stackInSlot = new ItemStack[INVENTORY_SIZE];
+    }
+    
 	@Override
 	public int getSizeInventory(){
 		return 1;
@@ -35,7 +42,7 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public ItemStack getStackInSlot(int slot){
-		return stackInSlot[slot];
+		return this.stackInSlot[slot];
 	}
 
 	@Override

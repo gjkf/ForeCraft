@@ -32,7 +32,7 @@ public class GuiHandler implements IGuiHandler{
 		
 		if(ID == References.GUI_CORE_ID){
 			BaseCoreTE baseCoreTe = (BaseCoreTE) world.getTileEntity(x, y, z);
-			return new CoreContainer(baseCoreTe);
+			return new CoreContainer(player.inventory, baseCoreTe);
 		}
 		
 		return null;
@@ -42,7 +42,8 @@ public class GuiHandler implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		
 		if(ID == References.GUI_CORE_ID){
-			return new CoreGui(player.inventory, (BaseCoreTE) world.getTileEntity(x, y, z));
+			BaseCoreTE baseCoreTe = (BaseCoreTE) world.getTileEntity(x, y, z);
+			return new CoreGui(player.inventory, baseCoreTe);
 		}
 		
 		return null;

@@ -16,53 +16,41 @@
 
 package com.gjkf.fc.client.gui.inventory;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gjkf.fc.blocks.container.CoreContainer;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
-import com.gjkf.lib.gui.GuiDraw;
-import com.gjkf.lib.gui.GuiGJButton;
-import com.gjkf.lib.gui.GuiScreenWidget;
 
-public class CoreGui extends GuiScreenWidget{
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
+public class CoreGui extends GuiContainer{
+
+	/*
+	 * TODO: Create a custom container class in the library, it will be quite hard but hopefully fun
+	 */
+
+	private BaseCoreTE tileEntity;
 	
-	{super.width = GuiDraw.displaySize().width;
-	super.height = GuiDraw.displaySize().height;}
+	public CoreGui(InventoryPlayer inventoryPlayer, BaseCoreTE tileEntity){
+		super(new CoreContainer(inventoryPlayer, tileEntity));
+		this.tileEntity = tileEntity;
+	}
+
 	
-	public CoreGui(InventoryPlayer inventoryPlayer, BaseCoreTE te){
-		super(GuiDraw.displaySize().width, GuiDraw.displaySize().height);
-	}
-
 	@Override
-	public void addWidgets(){
-		add(new GuiGJButton(width + 40, height - 150, 30, 20, "C/F").setActionCommand("C/F"));
+	public void drawGuiContainerBackgroundLayer(float f, int x, int y){
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.getTextureManager().bindTexture(new ResourceLocation("/textures/gui/inventory.png"));
+		this.drawTexturedModalRect(50, 0, 0, 0, this.xSize, this.ySize);
 	}
 
-	@Override
-	public void initGui(){
-		super.initGui();
-		System.err.println(width);
-		System.err.println(height);
-	}
-
-	@Override
-	public void drawForeground(){
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-
-		GuiDraw.drawCentered("Test It seems to Work!!! YAY", width, height, 0xFFFFFF);
-		
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float f){
-		drawDefaultBackground();
-		super.drawScreen(mouseX, mouseY, f);
-	}
-
+	
 	@Override
 	public boolean doesGuiPauseGame(){
 		return false;

@@ -44,7 +44,7 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 	private IIcon iconFront;
 
 	public BaseCore(){
-
+		super();
 	}
 
 	@Override
