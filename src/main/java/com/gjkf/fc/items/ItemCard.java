@@ -58,9 +58,9 @@ public class ItemCard extends Item{
 			
 			StationTE station = (StationTE) world.getTileEntity(x, y, z);
 			
-			NBTHelper.setInteger(itemStack, "XCoord", x);
-			NBTHelper.setInteger(itemStack, "YCoord", y);
-			NBTHelper.setInteger(itemStack, "ZCoord", z);
+			NBTHelper.setInteger(itemStack, "xCoord", x);
+			NBTHelper.setInteger(itemStack, "yCoord", y);
+			NBTHelper.setInteger(itemStack, "zCoord", z);
 			
 			NBTHelper.setDouble(itemStack, "Temperature", station.getTemperature());
 			NBTHelper.setDouble(itemStack, "Humidity", station.getHumidity());
@@ -93,9 +93,9 @@ public class ItemCard extends Item{
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4){
-		list.add("X: " + NBTHelper.getInt(stack, "XCoord"));
-		list.add("Y: " + NBTHelper.getInt(stack, "YCoord"));
-		list.add("Z: " + NBTHelper.getInt(stack, "ZCoord"));
+		list.add("X: " + NBTHelper.getInt(stack, "xCoord"));
+		list.add("Y: " + NBTHelper.getInt(stack, "yCoord"));
+		list.add("Z: " + NBTHelper.getInt(stack, "zCoord"));
 	
 		list.add(String.format("Temp: %.2f", NBTHelper.getDouble(stack, "Temperature")));
 		list.add(String.format("Hum: %.2f", NBTHelper.getDouble(stack, "Humidity")));
