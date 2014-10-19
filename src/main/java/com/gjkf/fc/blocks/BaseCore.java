@@ -63,7 +63,7 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 
 			Main.log.info("Opening Gui");
 
-			player.openGui(Main.instance, References.GUI_CORE_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+			player.openGui(Main.instance, References.GUI_CORE_ID, world, x, y, z);
 
 			Main.log.info("Succesfully opened Gui");
 

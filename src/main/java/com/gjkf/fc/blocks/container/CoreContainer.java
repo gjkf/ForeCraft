@@ -31,18 +31,13 @@ public class CoreContainer extends Container{
 	public CoreContainer(InventoryPlayer playerInv, BaseCoreTE te){
 		this.te = te;
 
-		this.addSlotToContainer(new Slot(te, BaseCoreTE.INVENTORY_INDEX, 45, 55));
+		this.addSlotToContainer(new Slot(te, BaseCoreTE.INVENTORY_INDEX, -187, 88));
 		
 	}
 	
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
+	public boolean canInteractWith(EntityPlayer player){
 		return true;
-	}
-	
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex){
-		return null;
 	}
 
 }

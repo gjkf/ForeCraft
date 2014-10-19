@@ -24,16 +24,13 @@ import org.lwjgl.opengl.GL11;
 
 import com.gjkf.fc.blocks.container.CoreContainer;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
+import com.gjkf.lib.gui.GuiContainerScreen;
+import com.gjkf.lib.gui.GuiDraw;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-public class CoreGui extends GuiContainer{
-
-	/*
-	 * TODO: Create a custom container class in the library, it will be quite hard but hopefully fun
-	 */
+public class CoreGui extends GuiContainerScreen{
 
 	private BaseCoreTE tileEntity;
 	
@@ -42,14 +39,12 @@ public class CoreGui extends GuiContainer{
 		this.tileEntity = tileEntity;
 	}
 
-	
 	@Override
 	public void drawGuiContainerBackgroundLayer(float f, int x, int y){
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(new ResourceLocation("/textures/gui/inventory.png"));
-		this.drawTexturedModalRect(50, 0, 0, 0, this.xSize, this.ySize);
+		this.mc.getTextureManager().bindTexture(new ResourceLocation("forecraft", "/textures/gui/coreBackground.png"));
+		GuiDraw.drawNonStandartTexturedRect(0, 0, 0, 0, width, height, 512, 256);
 	}
-
 	
 	@Override
 	public boolean doesGuiPauseGame(){
