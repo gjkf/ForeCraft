@@ -18,7 +18,6 @@ package com.gjkf.fc.blocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,12 +32,12 @@ import com.gjkf.fc.Main;
 import com.gjkf.fc.blocks.te.StationTE;
 import com.gjkf.fc.handler.BiomesHandler;
 import com.gjkf.fc.handler.WeatherHandler;
-import com.gjkf.fc.references.References;
+import com.gjkf.fc.items.ItemCard;
 import com.gjkf.fc.weather.Humidity;
 import com.gjkf.fc.weather.Pressure;
-import com.gjkf.fc.weather.Rain;
 import com.gjkf.fc.weather.Temperature;
 import com.gjkf.lib.blocks.GJMachineBlock;
+import com.gjkf.lib.helper.NBTHelper;
 
 public class Station extends GJMachineBlock implements ITileEntityProvider{
 
@@ -54,8 +53,10 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	private Pressure p;
 	private Temperature t;
 	private Humidity h;
-	
+
 	private WeatherHandler weatherHandler;
+
+	public ItemStack card;
 
 	public Station(){
 		setTickRandomly(true);
@@ -83,7 +84,7 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 
 		biomeTemp = currBiome.temperature;
 		biomeHum = currBiome.rainfall;
-		
+
 		setWeather(t, h, p, currBiome, x, y, z, world);
 
 		if(world.isRemote){
@@ -92,11 +93,11 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 
 		biomeHum = 0;
 		biomeTemp = 0;
-		
+
 		weatherHandler = new WeatherHandler();
 		weatherHandler.init(this);
 	}
-	
+
 	public static double getBlockTemperature(){
 		return temperature;
 	}
@@ -108,7 +109,7 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	public static double getBlockPressure(){
 		return pressure;
 	}
-	
+
 	/*
 	 * Sets the Pressure, Humidity and Temperature that the block can measure
 	 * @param temperature
@@ -122,11 +123,11 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	 */
 
 	public static void setWeather(Temperature t, Humidity h, Pressure p, BiomeGenBase currBiome, int x, int y, int z, World world){
-		
+
 		/*
 		 *If the biome is not a vanilla biome, then use the dictionary 
 		 */
-		
+
 		if(BiomesHandler.vanillaBiomes.get(currBiome) == null){
 			t.setTemperature(BiomesHandler.biomesMap.get(BiomeDictionary.getTypesForBiome(currBiome)[0]));
 		}else{
@@ -146,14 +147,30 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 		p = new Pressure();
 		t = new Temperature();
 		h = new Humidity();
-		
+
 		setWeather(t, h, p, world.getBiomeGenForCoords(x, z), x, y, z, world);
 
 		Main.log.info("Temp/Hum/Press: " + temperature + " " + humidity + " " + pressure);
 
 		weatherHandler = new WeatherHandler();
 		weatherHandler.init(this);
-		
+
+		if(card != null){
+			NBTHelper.setDouble(card, "Temperature", temperature);
+			NBTHelper.setDouble(card, "Humidity", humidity);
+			NBTHelper.setDouble(card, "Pressure", pressure);
+		}
+
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
+
+
+		Main.log.info("Temp/Hum/Press: " + temperature + " " + humidity + " " + pressure);
+
+		return true;
+
 	}
 
 	@Override

@@ -50,8 +50,6 @@ public class Rain{
 			}
 		}
 
-		Main.log.info("Rain Probability: " + getProbability());
-
 	}
 
 	public static void setProbability(double humidity, double pressure){

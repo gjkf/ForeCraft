@@ -27,26 +27,29 @@ import com.gjkf.fc.items.ItemCard;
 import com.gjkf.lib.helper.NBTHelper;
 
 public class BaseCoreTE extends TileEntity implements IInventory{
-	
+
 	public ItemStack[] stackInSlot; 
-	
+
 	public static final int INVENTORY_SIZE = 1;
-    public static final int INVENTORY_INDEX = 0;
-    
-    private int xCoord, yCoord, zCoord;
-    private double humidity, temperature, pressure;
-	
-    public BaseCoreTE(){
-    	stackInSlot = new ItemStack[INVENTORY_SIZE];
-    }
-    
-    @Override
-    public void readFromNBT(NBTTagCompound tag){
-    
-    	super.readFromNBT(tag);
-    	
-    	NBTTagList tagList = tag.getTagList("items", 10);
-    	stackInSlot = new ItemStack[this.getSizeInventory()];
+	public static final int INVENTORY_INDEX = 0;
+
+	private int xCoord, yCoord, zCoord;
+	public double humidity;
+	public double temperature;
+	public double pressure;
+
+	public BaseCoreTE(){
+		stackInSlot = new ItemStack[INVENTORY_SIZE];
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag){
+
+		super.readFromNBT(tag);
+
+		// Read in the ItemStacks in the inventory from NBT
+        NBTTagList tagList = tag.getTagList("Items", 10);
+        stackInSlot = new ItemStack[this.getSizeInventory()];
         for (int i = 0; i < tagList.tagCount(); ++i){
             NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
             byte slotIndex = tagCompound.getByte("Slot");
@@ -54,49 +57,50 @@ public class BaseCoreTE extends TileEntity implements IInventory{
                 stackInSlot[slotIndex] = ItemStack.loadItemStackFromNBT(tagCompound);
             }
         }
-    	
-    	this.xCoord = tag.getInteger("xCoord");
-    	this.yCoord = tag.getInteger("yCoord");
-    	this.zCoord = tag.getInteger("zCoord");
-    	this.temperature = tag.getDouble("Temperature");
-    	this.humidity = tag.getDouble("Humidity");
-    	this.pressure = tag.getDouble("Pressure");
-    	
-    }
-    
-    @Override
-    public void writeToNBT(NBTTagCompound tag){
-    
-    	super.writeToNBT(tag);
-    	
-    	if(getStackInSlot(0) != null && getStackInSlot(0) == new ItemStack(new ItemCard())){
-    		
-    		ItemStack card = getStackInSlot(0);
-    		
-    		NBTTagList tagList = new NBTTagList();
-            for(int currentIndex = 0; currentIndex < stackInSlot.length; ++currentIndex){
-                if(stackInSlot[currentIndex] != null){
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Slot", (byte) currentIndex);
-                    stackInSlot[currentIndex].writeToNBT(tagCompound);
-                    tagList.appendTag(tagCompound);
-                }
-            }
-            
-            tag.setTag("items", tagList);
-    		
-    		tag.setInteger("xCoord", NBTHelper.getInt(card, "xCoord"));
-    		tag.setInteger("yCoord", NBTHelper.getInt(card, "yCoord"));
-    		tag.setInteger("zCoord", NBTHelper.getInt(card, "zCoord"));
-    		
-    		tag.setDouble("temperature", NBTHelper.getDouble(card, "Temperature"));
-    		tag.setDouble("humidity", NBTHelper.getDouble(card, "Humidity"));
-    		tag.setDouble("pressure", NBTHelper.getDouble(card, "Pressure"));
-    		
-    	}
-    	
-    }
-    
+
+		this.xCoord = tag.getInteger("xCoord");
+		this.yCoord = tag.getInteger("yCoord");
+		this.zCoord = tag.getInteger("zCoord");
+		this.temperature = tag.getDouble("Temperature");
+		this.humidity = tag.getDouble("Humidity");
+		this.pressure = tag.getDouble("Pressure");
+
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound tag){
+
+		super.writeToNBT(tag);
+
+		if(getStackInSlot(0) != null && getStackInSlot(0) == new ItemStack(new ItemCard())){
+
+			ItemStack card = getStackInSlot(0);
+
+			// Write the ItemStacks in the inventory to NBT
+	        NBTTagList tagList = new NBTTagList();
+	        for (int currentIndex = 0; currentIndex < stackInSlot.length; ++currentIndex){
+	            if (stackInSlot[currentIndex] != null){
+	                NBTTagCompound tagCompound = new NBTTagCompound();
+	                tagCompound.setByte("Slot", (byte) currentIndex);
+	                stackInSlot[currentIndex].writeToNBT(tagCompound);
+	                tagList.appendTag(tagCompound);
+	            }
+	        }
+	        
+	        tag.setTag("Items", tagList);
+
+			tag.setInteger("xCoord", NBTHelper.getInt(card, "xCoord"));
+			tag.setInteger("yCoord", NBTHelper.getInt(card, "yCoord"));
+			tag.setInteger("zCoord", NBTHelper.getInt(card, "zCoord"));
+
+			tag.setDouble("temperature", NBTHelper.getDouble(card, "Temperature"));
+			tag.setDouble("humidity", NBTHelper.getDouble(card, "Humidity"));
+			tag.setDouble("pressure", NBTHelper.getDouble(card, "Pressure"));
+
+		}
+
+	}
+
 	@Override
 	public int getSizeInventory(){
 		return 1;
@@ -110,27 +114,27 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 	@Override
 	public ItemStack decrStackSize(int slot, int ammount){
 		ItemStack itemStack = getStackInSlot(slot);
-        if (itemStack != null){
-            if (itemStack.stackSize <= ammount){
-                setInventorySlotContents(slot, null);
-            }else{
-                itemStack = itemStack.splitStack(ammount);
-                if (itemStack.stackSize == 0){
-                    setInventorySlotContents(slot, null);
-                }
-            }
-        }
+		if (itemStack != null){
+			if (itemStack.stackSize <= ammount){
+				setInventorySlotContents(slot, null);
+			}else{
+				itemStack = itemStack.splitStack(ammount);
+				if (itemStack.stackSize == 0){
+					setInventorySlotContents(slot, null);
+				}
+			}
+		}
 
-        return itemStack;
+		return itemStack;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot){
 		ItemStack itemStack = getStackInSlot(slot);
-        if (itemStack != null){
-            setInventorySlotContents(slot, null);
-        }
-        return itemStack;
+		if (itemStack != null){
+			setInventorySlotContents(slot, null);
+		}
+		return itemStack;
 	}
 
 	@Override
@@ -160,12 +164,12 @@ public class BaseCoreTE extends TileEntity implements IInventory{
 
 	@Override
 	public void openInventory(){
-		
+
 	}
 
 	@Override
 	public void closeInventory(){
-		
+
 	}
 
 	@Override

@@ -18,14 +18,15 @@ package com.gjkf.fc.items;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import scala.xml.dtd.impl.Base;
 
 import com.gjkf.fc.Main;
+import com.gjkf.fc.blocks.Station;
 import com.gjkf.fc.blocks.te.BaseCoreTE;
 import com.gjkf.fc.blocks.te.StationTE;
 import com.gjkf.lib.helper.NBTHelper;
@@ -54,17 +55,19 @@ public class ItemCard extends Item{
 	@Override
 	public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ){
 		
-		if(world.getTileEntity(x, y, z) instanceof StationTE){
+		if(world.getBlock(x, y, z) instanceof Station){
 			
-			StationTE station = (StationTE) world.getTileEntity(x, y, z);
+			Station station = (Station) world.getBlock(x, y, z);
 			
 			NBTHelper.setInteger(itemStack, "xCoord", x);
 			NBTHelper.setInteger(itemStack, "yCoord", y);
 			NBTHelper.setInteger(itemStack, "zCoord", z);
 			
-			NBTHelper.setDouble(itemStack, "Temperature", station.getTemperature());
-			NBTHelper.setDouble(itemStack, "Humidity", station.getHumidity());
-			NBTHelper.setDouble(itemStack, "Pressure", station.getPressure());
+			NBTHelper.setDouble(itemStack, "Temperature", station.temperature);
+			NBTHelper.setDouble(itemStack, "Humidity", station.humidity);
+			NBTHelper.setDouble(itemStack, "Pressure", station.pressure);
+			
+			Main.log.info("Temp/Hum/Press2: " + station.temperature + " " + station.humidity + " " + station.pressure);
 			
 			return true;
 			
