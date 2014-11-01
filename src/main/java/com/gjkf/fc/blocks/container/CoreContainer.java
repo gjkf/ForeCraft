@@ -30,9 +30,6 @@ public class CoreContainer extends Container{
 	
 	public CoreContainer(InventoryPlayer playerInv, BaseCoreTE te){
 		this.te = te;
-
-		this.addSlotToContainer(new Slot(te, BaseCoreTE.INVENTORY_INDEX, -187, 88));
-		
 	}
 	
 	@Override

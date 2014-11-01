@@ -59,6 +59,7 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	public ItemStack card;
 
 	public Station(){
+		super();
 		setTickRandomly(true);
 	}
 
@@ -144,6 +145,8 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rnd){
 
+		super.updateTick(world, x, y, z, rnd);
+		
 		p = new Pressure();
 		t = new Temperature();
 		h = new Humidity();
@@ -165,12 +168,8 @@ public class Station extends GJMachineBlock implements ITileEntityProvider{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
-
-
 		Main.log.info("Temp/Hum/Press: " + temperature + " " + humidity + " " + pressure);
-
 		return true;
-
 	}
 
 	@Override

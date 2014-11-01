@@ -35,6 +35,8 @@ public class ItemCard extends Item{
 
 	public ItemCard(){
 
+		setMaxStackSize(1);
+		
 	}
 	
 	/*
@@ -67,7 +69,7 @@ public class ItemCard extends Item{
 			NBTHelper.setDouble(itemStack, "Humidity", station.humidity);
 			NBTHelper.setDouble(itemStack, "Pressure", station.pressure);
 			
-			Main.log.info("Temp/Hum/Press2: " + station.temperature + " " + station.humidity + " " + station.pressure);
+			Main.log.info("Station: " + station);
 			
 			return true;
 			
@@ -75,13 +77,7 @@ public class ItemCard extends Item{
 			
 			BaseCoreTE core = (BaseCoreTE) world.getTileEntity(x, y, z);
 			
-			core.setInventorySlotContents(0, entityPlayer.getCurrentEquippedItem());
-			
-			Main.log.info("TeSt");
-			Main.log.info("Stack in slot: " + core.getStackInSlot(0));
-			
-			Main.log.info("Stack in Slot: " + core.stackInSlot[0]);
-			Main.log.info("Player hand: " + entityPlayer.getCurrentEquippedItem());
+			Main.log.info("Core: " + core);
 			
 			return true;
 			

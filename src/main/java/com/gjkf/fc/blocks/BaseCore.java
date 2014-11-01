@@ -72,16 +72,13 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 
 		if(player.getCurrentEquippedItem() != null){
 			if(player.getCurrentEquippedItem().getItem() instanceof ItemCard && world.getTileEntity(x, y, z) instanceof BaseCoreTE){
-				BaseCoreTE coreTe = (BaseCoreTE) world.getTileEntity(x, y, z);
-
-				Main.log.info("Stack In SlOt: " + coreTe.getStackInSlot(0));
-
-				if(coreTe.getStackInSlot(0) == null){
-					coreTe.setInventorySlotContents(0, player.getCurrentEquippedItem());
-					Main.log.info("Test");
-					Main.log.info("Stack in Slot: " + coreTe.stackInSlot[0]);
-					Main.log.info("Player hand: " + player.getCurrentEquippedItem());
-				}
+				BaseCoreTE core = (BaseCoreTE) world.getTileEntity(x, y, z);
+				
+				core.registerCoords(player.getCurrentEquippedItem());
+				
+				Main.log.info("T/H/P (Core): " + core.getTemperature() + " " + core.getHumidity() + " " + core.getPressure());
+				
+				Main.log.info("CoreTE: " + core);
 			}
 		}
 
@@ -155,7 +152,7 @@ public class BaseCore extends GJMachineBlock implements ITileEntityProvider{
 		}
 
 	}
-
+	
 	@Override
 	public int getRenderType(){
 		return 0;
